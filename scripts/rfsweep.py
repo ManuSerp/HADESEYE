@@ -1,4 +1,5 @@
 import subprocess
+from importlib_metadata import files
 import numpy as np
 from graphf import graphf
 import argparse
@@ -38,9 +39,9 @@ def file_to_list(file_name):
     return lines
 
 
-def db_block(file_name, n=20, offset=0):
+def db_block(lines, n=20, offset=0):
     db = []
-    lines = file_to_list(file_name)
+   
     for i in range(offset, n+offset):
         for x in lines[i][6]:
             db.append(x)
@@ -60,6 +61,8 @@ class rfsweep():
             self.setup = True
         else:
             self.setup = False
+        
+        self.sample=file_to_list("sample_rfsweep")
 
     def pas(self):
         if self.setup:
@@ -67,10 +70,11 @@ class rfsweep():
             bash_com("hackrf_sweep -f " + str(int(self.min/1000000)) + ":" + str(int((self.max-10000000)/1000000)) + " -r sample_rfsweep")
 
         if self.setup:
-            self.g.update(db_block("sample_rfsweep", int(self.n/5), 0))
+            self.sample=file_to_list("sample_rfsweep")
+            self.g.update(db_block(self.sample, int(self.n/5), 0))
 
         else:    
-            self.g.update(db_block("sample_rfsweep", int(self.n/5), self.phase*int(self.n/5)))
+            self.g.update(db_block(self.sample, int(self.n/5), self.phase*int(self.n/5)))
 
 
         self.phase += 1
