@@ -1,5 +1,6 @@
 import subprocess
-import vargraph
+import numpy as np
+import graphf
 
 
 def bash_com(cmd="hackrf_sweep -f 2400:2490"):  # -r sample
@@ -28,4 +29,14 @@ def file_to_list(file_name):
     return lines
 
 
-a = file_to_list("sample")
+def db_block(file_name, n=20):
+    db = []
+    lines = file_to_list(file_name)
+    for i in range(n):
+        for x in lines[i][6]:
+            db.append(x)
+    g = graphf.graphf()
+    g.update(db)
+
+
+db_block("sample")
