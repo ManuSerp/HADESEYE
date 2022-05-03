@@ -63,8 +63,8 @@ class rfsweep():
 
     def pas(self):
         if self.setup:
-            bash_com("rm sample_rfsweep")
-            bash_com("hackrf_sweep -f " + str(self.min/1000000) + ":" + str((self.max-10000000)/1000000) + " -r sample_rfsweep")
+            #bash_com("rm sample_rfsweep")
+            bash_com("hackrf_sweep -f " + str(int(self.min/1000000)) + ":" + str(int((self.max-10000000)/1000000)) + " -r sample_rfsweep")
 
         if self.setup:
             self.g.update(db_block("sample_rfsweep", int(self.n/5), 0))
@@ -72,7 +72,7 @@ class rfsweep():
         else:    
             self.g.update(db_block("sample_rfsweep", int(self.n/5), self.phase*int(self.n/5)))
 
-            
+
         self.phase += 1
 
 
