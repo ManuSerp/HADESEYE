@@ -1,6 +1,6 @@
 import subprocess
 import numpy as np
-import graphf
+from graphf import graphf
 
 
 def bash_com(cmd="hackrf_sweep -f 2400:2490"):  # -r sample
@@ -29,14 +29,36 @@ def file_to_list(file_name):
     return lines
 
 
-def db_block(file_name, n=20):
+def db_block(file_name, n=20, offset=0):
     db = []
     lines = file_to_list(file_name)
-    for i in range(n):
+    for i in range(offset, n+offset):
         for x in lines[i][6]:
             db.append(x)
-    g = graphf.graphf()
-    g.update(db)
+
+    return db
 
 
-db_block("sample")
+class rfsweep():
+    def __init__(self, min=2400000000, max=2500000000, n=20):
+        self.min = min
+        self.max = max
+        self.n = n*5
+        self.g = graphf(self.min, self.max, self.n, -100, 0)
+        self.phase = 0
+
+    def pas(self):
+        #bash_com("rm sample_rfsweep")
+        # bash_com("hackrf_sweep -f " + str(self.min/1000000) +
+        #        ":" + str((self.max-10000000)/1000000) + " -r sample_rfsweep")
+
+        self.g.update(db_block("sample_rfsweep", int(
+            self.n/5), self.phase*int(self.n/5)))
+        self.phase += 1
+
+
+rfsweep = rfsweep()
+
+for i in range(0, 100):
+    rfsweep.pas()
+    
