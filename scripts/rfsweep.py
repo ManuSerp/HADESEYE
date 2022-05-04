@@ -9,9 +9,8 @@ parser.add_argument('--setup', default="postprocessing", type=str,
                     help='realtime or postprocessing')
 
 
-
-
 args = parser.parse_args()
+
 
 def bash_com(cmd="hackrf_sweep -f 2400:2490"):  # -r sample
     bashCmd = cmd.split(" ")
@@ -39,43 +38,46 @@ def file_to_list(file_name):
     return lines
 
 
-def db_block(lines, n=20, offset=0):
-    db = []
-   
+def db_block(lines, n=20, offset=0, min=2400000000):
+    db = [0 for i in range(int(n*5))]
+
     for i in range(offset, n+offset):
-        for x in lines[i][6]:
-            db.append(x)
+        for t, x in enumerate(lines[i][6]):
+
+            db[int(((int(lines[i][2])-min)/1000000)+t)] = x
 
     return db
 
 
 class rfsweep():
-    def __init__(self, min=2400000000, max=2500000000, n=20,qt=False, setup=False):
+    def __init__(self, min=2400000000, max=2500000000, n=20, qt=False, setup=False):
         self.min = min
         self.max = max
         self.n = n*5
         if qt:
-            self.g = graphf(min, max, n, "hackrf_sweep") #a changer vers un qt graph
+            # a changer vers un qt graph
+            self.g = graphf(min, max, n, "hackrf_sweep")
         else:
             self.g = graphf(self.min, self.max, self.n, -100, 0)
         self.phase = 0
 
         self.setup = setup
-        
-        self.sample=file_to_list("sample_rfsweep")
+
+        self.sample = file_to_list("sample_rfsweep")
 
     def pas(self):
         if self.setup:
             #bash_com("rm sample_rfsweep")
-            bash_com("hackrf_sweep -f " + str(int(self.min/1000000)) + ":" + str(int((self.max-10000000)/1000000)) + " -r sample_rfsweep")
+            bash_com("hackrf_sweep -f " + str(int(self.min/1000000)) + ":" +
+                     str(int((self.max-10000000)/1000000)) + " -r sample_rfsweep")
 
         if self.setup:
-            self.sample=file_to_list("sample_rfsweep")
+            self.sample = file_to_list("sample_rfsweep")
             self.g.update(db_block(self.sample, int(self.n/5), 0))
 
-        else:    
-            self.g.update(db_block(self.sample, int(self.n/5), self.phase*int(self.n/5)))
-
+        else:
+            self.g.update(db_block(self.sample, int(
+                self.n/5), self.phase*int(self.n/5), self.min))
 
         self.phase += 1
 
@@ -84,4 +86,3 @@ rfsweep = rfsweep()
 
 for i in range(0, 100):
     rfsweep.pas()
-    
