@@ -2,7 +2,7 @@ from importlib_metadata import files
 import numpy as np
 from rfsweep_lib.graphf import graphf
 from rfsweep_lib.subfun import *
-#from rfsweep_lib.vargraph import *
+from rfsweep_lib.vargraph import graphf_qt
 import argparse
 
 parser = argparse.ArgumentParser(description='rf spectrum analyzer hackrf')
@@ -31,11 +31,9 @@ class rfsweep():
         self.min = min
         self.max = max
         self.n = n*5
-        if qt:
-            # a changer vers un qt graph
-            self.g = graphf(min, max, n, "hackrf_sweep")
-        else:
-            self.g = graphf(self.min, self.max, self.n, -100, 0)
+        self.qt = qt
+
+        self.g = graphf(self.min, self.max, self.n, -100, 0)
         self.phase = 0
 
         self.setup = setup
@@ -52,11 +50,21 @@ class rfsweep():
 
         if self.setup:
             self.sample = file_to_list("rfsweep/rfsweep_data/sample_rfsweep")
-            self.g.update(db_block(self.sample, int(self.n/5), 0))
+
+            if self.qt:
+                return(db_block(self.sample, int(self.n/5), 0))
+
+            else:
+                self.g.update(db_block(self.sample, int(self.n/5), 0))
 
         else:
-            self.g.update(db_block(self.sample, int(
-                self.n/5), self.phase*int(self.n/5), self.min))
+            if self.qt:
+                return db_block(self.sample, int(
+                    self.n/5), self.phase*int(self.n/5), self.min)
+
+            else:
+                self.g.update(db_block(self.sample, int(
+                    self.n/5), self.phase*int(self.n/5), self.min))
 
         self.phase += 1
 
