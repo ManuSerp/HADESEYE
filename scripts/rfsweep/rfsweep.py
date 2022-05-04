@@ -2,13 +2,13 @@ from importlib_metadata import files
 import numpy as np
 from rfsweep_lib.graphf import graphf
 from rfsweep_lib.subfun import *
-from rfsweep_lib.vargraph import graphf_qt
 import argparse
 
 parser = argparse.ArgumentParser(description='rf spectrum analyzer hackrf')
-parser.add_argument('--setup', default="postprocessing", type=str,
+parser.add_argument('--setup', default="pp", type=str,
                     help='realtime or postprocessing')
 parser.add_argument("--qt", default=False, type=bool, help="use qt")
+parser.add_argument("--freq", default="2400:2500", type=str, help="freq range")
 
 
 args = parser.parse_args()
@@ -33,7 +33,8 @@ class rfsweep():
         self.n = n*5
         self.qt = qt
 
-        self.g = graphf(self.min, self.max, self.n, -100, 0)
+        if not self.qt:
+            self.g = graphf(self.min, self.max, self.n, -100, 0)
         self.phase = 0
 
         self.setup = setup
@@ -59,8 +60,10 @@ class rfsweep():
 
         else:
             if self.qt:
-                return db_block(self.sample, int(
+                var = db_block(self.sample, int(
                     self.n/5), self.phase*int(self.n/5), self.min)
+                self.phase += 1
+                return var
 
             else:
                 self.g.update(db_block(self.sample, int(
@@ -72,8 +75,14 @@ class rfsweep():
         self.sample = file_to_list(file_name)
 
 
-rfsweep = rfsweep()
-# rfsweep.load_sample("rfsweep/rfsweep_data/sample_rfsweep")
-for i in range(0, 100):
+if __name__ == '__main__':
 
-    rfsweep.pas()
+    if args.setup == "pp":
+        rf = rfsweep(False, 2400000000, 2500000000, args.qt)
+    elif args.setup == "rt":
+        rf = rfsweep(True, 2400000000, 2500000000, args.qt)
+
+# rfsweep.load_sample("rfsweep/rfsweep_data/sample_rfsweep")
+    for i in range(0, 100):
+
+        rf.pas()
