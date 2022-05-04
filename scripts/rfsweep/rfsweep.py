@@ -78,7 +78,7 @@ class rfsweep():
         if not checkFileExistance("sample_rfsweep"):
             bash_com("touch sample_rfsweep")
 
-        self.sample = file_to_list("sample_rfsweep")
+        self.sample = file_to_list("rfsweep/rfsweep_data/sample_rfsweep")
 
     def pas(self):
         if self.setup:
@@ -87,7 +87,7 @@ class rfsweep():
                      str(int((self.max-10000000)/1000000)) + " -r sample_rfsweep")
 
         if self.setup:
-            self.sample = file_to_list("sample_rfsweep")
+            self.sample = file_to_list("rfsweep/rfsweep_data/sample_rfsweep")
             self.g.update(db_block(self.sample, int(self.n/5), 0))
 
         else:
