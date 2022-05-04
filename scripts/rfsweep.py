@@ -7,6 +7,7 @@ import argparse
 parser = argparse.ArgumentParser(description='rf spectrum analyzer hackrf')
 parser.add_argument('--setup', default="postprocessing", type=str,
                     help='realtime or postprocessing')
+parser.add_argument("--qt", default=False, type=bool, help="use qt")
 
 
 args = parser.parse_args()
@@ -50,7 +51,8 @@ def db_block(lines, n=20, offset=0, min=2400000000):
 
 
 class rfsweep():
-    def __init__(self, min=2400000000, max=2500000000, n=20, qt=False, setup=False):
+    def __init__(self, setup=False, min=2400000000, max=2500000000, qt=False):
+        n = int((max-min)/1000000*0.2)  # de base c 20
         self.min = min
         self.max = max
         self.n = n*5
