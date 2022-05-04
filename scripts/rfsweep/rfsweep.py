@@ -96,8 +96,12 @@ class rfsweep():
 
         self.phase += 1
 
+    def load_sample(self, file_name):
+        self.sample = file_to_list(file_name)
+
 
 rfsweep = rfsweep()
-
+# rfsweep.load_sample("rfsweep/rfsweep_data/sample_rfsweep")
 for i in range(0, 100):
+
     rfsweep.pas()
