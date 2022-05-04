@@ -23,7 +23,7 @@ def checkFileExistance(filePath):
         return False
 
 
-def bash_com(cmd="hackrf_sweep -f 2400:2490"):  # -r sample
+def bash_com(cmd="ls"):  # -r sample
     bashCmd = cmd.split(" ")
     process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE)
 
