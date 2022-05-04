@@ -13,6 +13,16 @@ parser.add_argument("--qt", default=False, type=bool, help="use qt")
 args = parser.parse_args()
 
 
+def checkFileExistance(filePath):
+    try:
+        with open(filePath, 'r') as f:
+            return True
+    except FileNotFoundError as e:
+        return False
+    except IOError as e:
+        return False
+
+
 def bash_com(cmd="hackrf_sweep -f 2400:2490"):  # -r sample
     bashCmd = cmd.split(" ")
     process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE)
@@ -64,12 +74,14 @@ class rfsweep():
         self.phase = 0
 
         self.setup = setup
+        if not checkFileExistance("sample_rfsweep"):
+            bash_com("touch sample_rfsweep")
 
         self.sample = file_to_list("sample_rfsweep")
 
     def pas(self):
         if self.setup:
-            #bash_com("rm sample_rfsweep")
+            bash_com("rm sample_rfsweep")
             bash_com("hackrf_sweep -1 -f " + str(int(self.min/1000000)) + ":" +
                      str(int((self.max-10000000)/1000000)) + " -r sample_rfsweep")
 
