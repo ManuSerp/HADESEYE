@@ -68,7 +68,7 @@ class rfsweep():
     def pas(self):
         if self.setup:
             #bash_com("rm sample_rfsweep")
-            bash_com("hackrf_sweep -f " + str(int(self.min/1000000)) + ":" +
+            bash_com("hackrf_sweep -1 -f " + str(int(self.min/1000000)) + ":" +
                      str(int((self.max-10000000)/1000000)) + " -r sample_rfsweep")
 
         if self.setup:
