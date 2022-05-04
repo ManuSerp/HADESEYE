@@ -1,7 +1,7 @@
-import subprocess
 from importlib_metadata import files
 import numpy as np
 from rfsweep_lib.graphf import graphf
+from rfsweep_lib.subfun import *
 #from rfsweep_lib.vargraph import *
 import argparse
 
@@ -12,42 +12,6 @@ parser.add_argument("--qt", default=False, type=bool, help="use qt")
 
 
 args = parser.parse_args()
-
-
-def checkFileExistance(filePath):
-    try:
-        with open(filePath, 'r') as f:
-            return True
-    except FileNotFoundError as e:
-        return False
-    except IOError as e:
-        return False
-
-
-def bash_com(cmd="ls"):  # -r sample
-    bashCmd = cmd.split(" ")
-    process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE)
-
-    output, error = process.communicate()
-
-    if not error:
-        return output
-    else:
-        return error
-
-
-def file_to_list(file_name):
-    with open(file_name, 'r') as f:
-        lines = f.readlines()
-    for i in range(len(lines)):
-        lines[i] = lines[i].strip('\n')
-        lines[i] = lines[i].split(', ')
-        for j in range(2, len(lines[i])):
-            lines[i][j] = float(lines[i][j])
-        var = lines[i][0:6]
-        var.append(lines[i][len(lines[i])-5: len(lines[i])])
-        lines[i] = var
-    return lines
 
 
 def db_block(lines, n=20, offset=0, min=2400000000):
