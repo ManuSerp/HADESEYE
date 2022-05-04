@@ -50,11 +50,14 @@ def db_block(lines, n=20, offset=0):
 
 
 class rfsweep():
-    def __init__(self, min=2400000000, max=2500000000, n=20):
+    def __init__(self, min=2400000000, max=2500000000, n=20,qt=False):
         self.min = min
         self.max = max
         self.n = n*5
-        self.g = graphf(self.min, self.max, self.n, -100, 0)
+        if qt:
+            self.g = graphf(min, max, n, "hackrf_sweep") #a changer vers un qt graph
+        else:
+            self.g = graphf(self.min, self.max, self.n, -100, 0)
         self.phase = 0
 
         if args.setup=="realtime":
