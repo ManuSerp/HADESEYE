@@ -1,7 +1,8 @@
 import subprocess
 from importlib_metadata import files
 import numpy as np
-from graphf import graphf
+from rfsweep_lib.graphf import graphf
+#from rfsweep_lib.vargraph import *
 import argparse
 
 parser = argparse.ArgumentParser(description='rf spectrum analyzer hackrf')
