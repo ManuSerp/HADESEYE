@@ -1,7 +1,7 @@
 import pyqtgraph as pg
 import numpy as np
 from rfsweep import *
-
+from rfsweep_lib.subfun import *
 import argparse
 
 parser = argparse.ArgumentParser(description='rf spectrum analyzer hackrf')
@@ -37,7 +37,9 @@ class graphf_qt():
 
 if __name__ == '__main__':
 
+    min, max = freq_parser(args.freq)
+
     if args.setup == "pp":
-        rf = graphf_qt(False)
+        rf = graphf_qt(False, min, max)
     elif args.setup == "rt":
-        rf = graphf_qt(True)
+        rf = graphf_qt(True, min, max)

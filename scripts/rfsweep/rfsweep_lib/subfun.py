@@ -41,3 +41,11 @@ def file_to_list(file_name):
         var.append(lines[i][len(lines[i])-5: len(lines[i])])
         lines[i] = var
     return lines
+
+
+def freq_parser(freq):
+    freq = freq.split(":")
+    min = int(freq[0])*1000000
+    max = int(freq[1])*1000000
+    return min, max
+    

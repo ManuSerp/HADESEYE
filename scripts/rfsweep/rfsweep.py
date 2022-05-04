@@ -76,11 +76,12 @@ class rfsweep():
 
 
 if __name__ == '__main__':
+    min, max = freq_parser(args.freq)
 
     if args.setup == "pp":
-        rf = rfsweep(False, 2400000000, 2500000000, args.qt)
+        rf = rfsweep(False, min, max, args.qt)
     elif args.setup == "rt":
-        rf = rfsweep(True, 2400000000, 2500000000, args.qt)
+        rf = rfsweep(True, min, max, args.qt)
 
 # rfsweep.load_sample("rfsweep/rfsweep_data/sample_rfsweep")
     for i in range(0, 100):
