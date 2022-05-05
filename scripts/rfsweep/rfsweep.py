@@ -1,5 +1,6 @@
 from importlib_metadata import files
 import numpy as np
+from sympy import li
 from rfsweep_lib.graphf import graphf
 from rfsweep_lib.subfun import *
 import argparse
@@ -80,10 +81,12 @@ if __name__ == '__main__':
 
     if args.setup == "pp":
         rf = rfsweep(False, min, max, args.qt)
+        for i in range(0, int(len(rf.sample)/(rf.n/5))  ):
+            rf.pas()
+
     elif args.setup == "rt":
         rf = rfsweep(True, min, max, args.qt)
+        for i in range(0, 1000):
+            rf.pas()
 
 # rfsweep.load_sample("rfsweep/rfsweep_data/sample_rfsweep")
-    for i in range(0, 100):
-
-        rf.pas()

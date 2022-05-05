@@ -7,13 +7,16 @@ then
     then
         python -i rfsweep/qt_sweep.py --setup $1 --freq $2
     else
-        python rfsweep/rfsweep.py --setup $1 --freq $2
+        python -i rfsweep/rfsweep.py --setup $1 --freq $2
         
     fi
 else
-    python rfsweep/rfsweep.py --setup $1 --freq $2
+    python -i rfsweep/rfsweep.py --setup $1 --freq $2
     
     
 fi
 
 
+for i in range(0, 1):
+
+rf.pas()
