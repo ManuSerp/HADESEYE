@@ -56,9 +56,10 @@ class rfsweep():
 
             if self.qt:
                 print(delta_micro(init, datetime.datetime.now()))
-                return(db_block(self.sample, int(self.n/5), 0))
+                return(db_block(self.sample, int(self.n/5), 0, self.min))
             else:
-                self.g.update(db_block(self.sample, int(self.n/5), 0))
+                self.g.update(
+                    db_block(self.sample, int(self.n/5), 0, self.min))
         else:
             if self.qt:
                 var = db_block(self.sample, int(
