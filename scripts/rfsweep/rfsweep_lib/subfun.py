@@ -1,5 +1,9 @@
 import subprocess
+import datetime
 
+def delta_micro(time1, time2):
+    delta = time2 - time1
+    return delta.microseconds
 
 def log(msg, file):
     with open(file, "a") as f:
