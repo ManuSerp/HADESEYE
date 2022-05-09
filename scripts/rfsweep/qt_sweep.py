@@ -21,11 +21,24 @@ class graphf_qt():
         self.max = max
         self.min = min
         self.rf = rfsweep(setbool, min, max, True, mode)
-        self.plt = pg.plot()
-        self.plt.setWindowTitle("HADES EYE")
+        self.app = pg.mkQApp("app")
+#mw = QtWidgets.QMainWindow()
+# mw.resize(800,800)
+
+        self.win = pg.GraphicsLayoutWidget(
+            show=True, title="HADES EYE Window")
+        self.win.resize(1000, 600)
+        self.win.setWindowTitle('HADES EYE')
+
+# Enable antialiasing for prettier plots
+        pg.setConfigOptions(antialias=True)
+        self.plt = self.win.addPlot(title="RF SPECTRUM ANALYZER")
+        self.plt2 = self.win.addPlot(title="TRACKED SIGNAL")
         self.bufferSize = 1000
         self.data = np.zeros(self.bufferSize)
         self.curve = self.plt.plot()
+        self.scatter = self.plt2.plot(pen=None, symbol='o', symbolPen=None)
+
         self.plt.setRange(xRange=[min, max], yRange=[-100, 0])
         self.timer = pg.QtCore.QTimer()
         self.timer.timeout.connect(self.inter_maj)

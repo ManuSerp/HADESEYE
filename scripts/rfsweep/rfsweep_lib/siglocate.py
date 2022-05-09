@@ -8,6 +8,4 @@ class SigLocate:
         for x in data:
             if x > -50:
                 l.append(x)
-        if abs(max(l)-self.min) < 100:
-            self.min = max(l)
-        print(self.min)
+        self.min = max(l)
