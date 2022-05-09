@@ -22,6 +22,7 @@ class graphf_qt():
         self.min = min
         self.rf = rfsweep(setbool, min, max, True, mode)
         self.plt = pg.plot()
+        self.plt.setWindowTitle("HADES EYE")
         self.bufferSize = 1000
         self.data = np.zeros(self.bufferSize)
         self.curve = self.plt.plot()

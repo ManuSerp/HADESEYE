@@ -58,7 +58,7 @@ class rfsweep():
         if self.setup:
             bash_com("rm rfsweep/rfsweep_data/sample_rfsweep")
             bash_com("hackrf_sweep -1 -f " + str(int(self.min/1000000)) + ":" +
-                     str(int((self.max-10000000)/1000000)) + " -r rfsweep/rfsweep_data/sample_rfsweep")
+                     str(int((self.max-10000000)/1000000)) + " -r rfsweep/rfsweep_data/sample_rfsweep > /dev/null")
 
             self.sample = file_to_list("rfsweep/rfsweep_data/sample_rfsweep")
 
