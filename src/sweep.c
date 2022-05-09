@@ -1,6 +1,2 @@
-#include <stdio.h>
-int main() {
-    int hackrf_init();
+/* hackrf_sweep.c*/
 
-    return 0;
-}
