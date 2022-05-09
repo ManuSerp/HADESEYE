@@ -16,24 +16,32 @@ parser.add_argument("--freq", default="2400:2500", type=str, help="freq range")
 args = parser.parse_args()
 
 
-def db_block(lines, n=20, offset=0, min=2400000000):
+def db_block(lines, n=20, offset=0, min=2400000000, mode=0):
     db = [0 for i in range(int(n*5))]
 
     for i in range(offset, n+offset):
         for t, x in enumerate(lines[i][6]):
 
-            db[int(((int(lines[i][2])-min)/1000000)+t)] = x
+            if mode == 1:
+                if x > -50:
+                    db[int(((int(lines[i][2])-min)/1000000)+t)] = x
+                else:
+                    db[int(((int(lines[i][2])-min)/1000000)+t)] = -50
+            else:
+
+                db[int(((int(lines[i][2])-min)/1000000)+t)] = x
 
     return db
 
 
 class rfsweep():
-    def __init__(self, setup=False, min=2400000000, max=2500000000, qt=False):
+    def __init__(self, setup=False, min=2400000000, max=2500000000, qt=False, mode=0):
         n = int((max-min)/1000000*0.2)  # de base c 20
         self.min = min
         self.max = max
         self.n = n*5
         self.qt = qt
+        self.mode = mode
 
         if not self.qt:
             self.g = graphf(self.min, self.max, self.n, -100, 0)
@@ -56,7 +64,7 @@ class rfsweep():
 
             if self.qt:
                 print(delta_micro(init, datetime.datetime.now()))
-                return(db_block(self.sample, int(self.n/5), 0, self.min))
+                return(db_block(self.sample, int(self.n/5), 0, self.min, self.mode))
             else:
                 self.g.update(
                     db_block(self.sample, int(self.n/5), 0, self.min))
