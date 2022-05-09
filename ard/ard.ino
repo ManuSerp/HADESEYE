@@ -1,3 +1,4 @@
+
 #include <RCSwitch.h>
 
 //Parameters
@@ -55,7 +56,7 @@ void testPushBtn( ) { /* function testPushBtn */
     mySwitch.send("000101010101010001010101");
     ledState = !ledState;
     digitalWrite(ledPin, ledState);
-    delay(100); 
+    delayMicroseconds(1000); 
     ledState = !ledState;
     digitalWrite(ledPin, ledState);
   }
