@@ -17,6 +17,3 @@ else
 fi
 
 
-for i in range(0, 1):
-
-rf.pas()
