@@ -53,6 +53,7 @@ class graphf_qt():
 
         self.data = rand
         self.curve.setData(lim_data, self.data,)
+        self.scatter.setData([self.locater.min])
 
 
 if __name__ == '__main__':
