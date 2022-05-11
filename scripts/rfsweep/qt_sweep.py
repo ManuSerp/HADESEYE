@@ -16,6 +16,10 @@ parser.add_argument("--mode", default=1, type=int,
 args = parser.parse_args()
 
 
+def cal_dist(g, A=-35.5):
+    return pow(10, (A-g)/20)
+
+
 class graphf_qt():
     def __init__(self, setbool, min=2400000000, max=2500000000, mode=0):
         self.max = max
@@ -57,6 +61,7 @@ class graphf_qt():
         self.curve.setData(lim_data, self.data,)
         self.scatter.setData([self.locater.min])
         self.plt2.setLabel('bottom', str(self.locater.min))
+        self.plt.setLabel('bottom', str(cal_dist(self.locater.min)))
 
 
 if __name__ == '__main__':
