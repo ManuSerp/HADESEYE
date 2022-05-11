@@ -34,6 +34,7 @@ class graphf_qt():
         pg.setConfigOptions(antialias=True)
         self.plt = self.win.addPlot(title="RF SPECTRUM ANALYZER")
         self.plt2 = self.win.addPlot(title="TRACKED SIGNAL")
+        self.plt2.setLabel('right', 'Value')
         self.bufferSize = 1000
         self.data = np.zeros(self.bufferSize)
         self.curve = self.plt.plot()
@@ -55,6 +56,7 @@ class graphf_qt():
         self.data = rand
         self.curve.setData(lim_data, self.data,)
         self.scatter.setData([self.locater.min])
+        self.plt2.setLabel('bottom', str(self.locater.min))
 
 
 if __name__ == '__main__':
