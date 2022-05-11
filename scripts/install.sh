@@ -11,3 +11,4 @@ cmake ..
 make
 sudo make install
 sudo ldconfig
+hackrf_info
