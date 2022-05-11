@@ -40,6 +40,7 @@ class graphf_qt():
         self.scatter = self.plt2.plot(pen=None, symbol='o', symbolPen=None)
 
         self.plt.setRange(xRange=[min, max], yRange=[-100, 0])
+        self.plt2.setRange(xRange=[-5, 5], yRange=[-100, 0])
         self.timer = pg.QtCore.QTimer()
         self.timer.timeout.connect(self.inter_maj)
         self.timer.start(20)
@@ -64,3 +65,5 @@ if __name__ == '__main__':
         rf = graphf_qt(False, min, max, args.mode)
     elif args.setup == "rt":
         rf = graphf_qt(True, min, max, args.mode)
+
+# 840:900
