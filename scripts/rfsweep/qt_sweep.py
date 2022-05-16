@@ -25,7 +25,7 @@ class graphf_qt():
         self.max = max
         self.min = min
         self.rf = rfsweep(setbool, min, max, True, mode)
-        self.app = pg.mkQApp("app")
+        self.app = pg.mkQApp()
 #mw = QtWidgets.QMainWindow()
 # mw.resize(800,800)
 
