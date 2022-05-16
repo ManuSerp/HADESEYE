@@ -16,8 +16,8 @@ parser.add_argument("--mode", default=1, type=int,
 args = parser.parse_args()
 
 
-def cal_dist(g, A=9.12):
-    return pow(10, (A-g)/11)
+def cal_dist(g, A=23.24, f=20):
+    return pow(10, (A-g)/f)
 
 
 class graphf_qt():
