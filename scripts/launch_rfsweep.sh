@@ -10,10 +10,22 @@ then
         python -i rfsweep/rfsweep.py --setup $1 --freq $2
         
     fi
-else
-    python -i rfsweep/rfsweep.py --setup $1 --freq $2
+    
     
     
 fi
-
+if [ $# = 4 ]
+then
+    
+    if [ $3 = "qt" ]
+    then
+        python3 -i rfsweep/qt_sweep.py --setup $1 --freq $2
+    else
+        python3 -i rfsweep/rfsweep.py --setup $1 --freq $2
+        
+    fi
+    
+    
+    
+fi
 
