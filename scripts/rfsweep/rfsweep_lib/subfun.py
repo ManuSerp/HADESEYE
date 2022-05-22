@@ -22,7 +22,6 @@ def checkFileExistance(filePath):
 
 
 def bash_com(cmd="ls"):  # -r sample
-    #cmd=cmd+" > /dev/null"
     bashCmd = cmd.split(" ")
     process = subprocess.Popen(bashCmd, stdout=subprocess.PIPE)
 
