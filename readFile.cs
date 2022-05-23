@@ -11,6 +11,8 @@ if ( reader == null )
 else
 {
    // Read each line from the file
-   while ( (string txt = reader.ReadLine()) != null )
+   string txt = reader.ReadLine();
+   while ( txt != null )
       Debug.Log("-->" + txt);
+      txt = reader.ReadLine();
 }
