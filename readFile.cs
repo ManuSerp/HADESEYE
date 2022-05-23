@@ -26,5 +26,6 @@ else
         transform.position = pos;
         SphereCollider myCollider = transform.GetComponent<SphereCollider>();
         myCollider.radius = radius;
+        AssetDatabase.Refresh();
         txt = reader.ReadLine();
 }
