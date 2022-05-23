@@ -13,6 +13,18 @@ else
    // Read each line from the file
    string txt = reader.ReadLine();
    while ( txt != null )
-      Debug.Log("-->" + txt);
-      txt = reader.ReadLine();
+        Debug.Log("-->" + txt);
+        string[] coord = txt.Split(' ');
+        x=coord[0];
+        y=coord[1];
+        z=coord[2];
+        radius=coord[3];
+        Vector3 pos = transform.position;
+        pos.x = x;
+        pos.y = y;
+        pos.z = z;
+        transform.position = pos;
+        SphereCollider myCollider = transform.GetComponent<SphereCollider>();
+        myCollider.radius = radius;
+        txt = reader.ReadLine();
 }
