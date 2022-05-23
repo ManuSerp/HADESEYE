@@ -21,9 +21,9 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 while True:
     print(sys.stderr, '\nwaiting to receive message')
     data, address = sock.recvfrom(1024)
-    
+
     print(sys.stderr, 'received %s bytes from %s' % (len(data), address))
     print(sys.stderr, data)
 
     print(sys.stderr, 'sending acknowledgement to', address)
-    sock.sendto('ack', address)
+    sock.sendto(bytes('ack', 'utf-8'), address)

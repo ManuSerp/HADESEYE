@@ -4,6 +4,7 @@ from rfsweep import *
 from rfsweep_lib.subfun import *
 import argparse
 from rfsweep_lib.siglocate import *
+from rfsweep_lib.udpcast_sender import *
 
 parser = argparse.ArgumentParser(description='rf spectrum analyzer hackrf')
 parser.add_argument('--setup', default="pp", type=str,
@@ -12,6 +13,8 @@ parser.add_argument("--qt", default=False, type=bool, help="use qt")
 parser.add_argument("--freq", default="2400:2500", type=str, help="freq range")
 parser.add_argument("--mode", default=1, type=int,
                     help="mode 1 to erase noise")
+parser.add_argument("--cal", default=False, type=bool, help="calibrate")
+parser.add_argument("--name", default="antenna", type=str, help="name")
 
 args = parser.parse_args()
 
@@ -61,7 +64,9 @@ class graphf_qt():
         self.curve.setData(lim_data, self.data,)
         self.scatter.setData([self.locater.min])
         self.plt2.setLabel('bottom', str(self.locater.min))
-        self.plt.setLabel('bottom', str(cal_dist(self.locater.min)))
+        dist = str(cal_dist(self.locater.min))+"#"+args.name
+        send_data(dist)
+        self.plt.setLabel('bottom', dist)
 
 
 if __name__ == '__main__':
