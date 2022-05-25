@@ -14,7 +14,7 @@ else
    string txt = reader.ReadLine();
    while ( txt != null )
         Debug.Log("-->" + txt);
-        string[] coord = txt.Split(' ');
+        string[] coord = txt.Split(',');
         x=coord[0];
         y=coord[1];
         z=coord[2];
