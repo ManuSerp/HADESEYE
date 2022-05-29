@@ -70,19 +70,27 @@ class model:
             return good_points
 
         if c == 1:
+            print("ALERT CAS DANGEUREUX")
             good_points = []
             # c'est pas bon ca car ya deux none on verra plus tard
             for i, x in enumerate(inter):
-                if x == None:
+                if x != None:
                     idx_i = i
-            idx = []
-            for j in range(len(self.antenna)):
-                if idx_i != j:
-                    idx.append(j)
-            coord_i = add_mul_vec(diff_vec(self.a_pos[idx_i], self.a_pos[idx[0]]),
-                                  diff_vec(
-                self.a_pos[idx_i], self.a_pos[idx[1]]), dist[idx_i])
-            coord_i = add_vec(coord_i, self.a_pos[idx_i])
+            perm = []
+            for i in range(1, len(self.antenna)):
+                for j in range(1, len(self.antenna)+1):
+                    if i != j and j > i:
+
+                        perm.append([i, j])
+            for i in range(1,len(self.antenna)+1):
+                if i not in perm[idx_i]:
+                    solo_antenna = i
+            if dist_v(inter[idx_i][0], self.a_pos[solo_antenna-1]) < dist_v(inter[idx_i][1], self.a_pos[solo_antenna-1]):
+                good_points.append(inter[idx_i][0])
+            else:
+                good_points.append(inter[idx_i][1])
+            return good_points
+            
 
     def calculate_circle_intersect(self, dist):
         for i, x in enumerate(dist):
