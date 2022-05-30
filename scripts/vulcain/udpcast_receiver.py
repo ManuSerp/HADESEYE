@@ -24,7 +24,7 @@ m = model(["0", "1", "2"])
 print("calibrating...")
 m.calibrate(0, [0, 0])
 m.calibrate(1, [0, 233])
-m.calibrate(2, [198, 150])
+m.calibrate(2, [160, 180])
 print("done\nwaiting for data...")
 l_data = [None for i in range(len(m.antenna))]
 
