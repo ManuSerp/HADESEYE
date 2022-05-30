@@ -82,7 +82,7 @@ class model:
                     if i != j and j > i:
 
                         perm.append([i, j])
-            for i in range(1,len(self.antenna)+1):
+            for i in range(1, len(self.antenna)+1):
                 if i not in perm[idx_i]:
                     solo_antenna = i
             if dist_v(inter[idx_i][0], self.a_pos[solo_antenna-1]) < dist_v(inter[idx_i][1], self.a_pos[solo_antenna-1]):
@@ -90,7 +90,6 @@ class model:
             else:
                 good_points.append(inter[idx_i][1])
             return good_points
-            
 
     def calculate_circle_intersect(self, dist):
         for i, x in enumerate(dist):

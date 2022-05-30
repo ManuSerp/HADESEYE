@@ -26,9 +26,7 @@ m.calibrate(0, [0, 0])
 m.calibrate(1, [0.5, 1])
 m.calibrate(2, [1, 0])
 print("done\nwaiting for data...")
-l_data=[None for i in range(len(m.antenna))]
-
-
+l_data = [None for i in range(len(m.antenna))]
 
 
 # Receive/respond loop
@@ -38,9 +36,9 @@ while True:
 
     print(sys.stderr, 'received %s bytes from %s' % (len(data), address))
     print(sys.stderr, data)
-    data=data.decode('utf-8')
-    data=data.split('#')
-    l_data[int(data[1])]=float(data[0])
+    data = data.decode('utf-8')
+    data = data.split('#')
+    l_data[int(data[1])] = float(data[0])
     if None not in l_data:
 
         print("TRILAT:")
