@@ -23,26 +23,27 @@ print("done\nconfiguring trilateration model...")
 m = model(["0", "1", "2"])
 print("calibrating...")
 m.calibrate(0, [0, 0])
-m.calibrate(1, [0.5, 1])
-m.calibrate(2, [1, 0])
+m.calibrate(1, [0, 233])
+m.calibrate(2, [198, 150])
 print("done\nwaiting for data...")
 l_data = [None for i in range(len(m.antenna))]
 
 
 # Receive/respond loop
 while True:
-    print(sys.stderr, '\nwaiting to receive message')
+    # print(sys.stderr, '\nwaiting to receive message')
     data, address = sock.recvfrom(1024)
 
-    print(sys.stderr, 'received %s bytes from %s' % (len(data), address))
-    print(sys.stderr, data)
+    # print(sys.stderr, 'received %s bytes from %s' % (len(data), address))
+    # print(sys.stderr, data)
     data = data.decode('utf-8')
     data = data.split('#')
     l_data[int(data[1])] = float(data[0])
     if None not in l_data:
+        print(l_data)
 
         print("TRILAT:")
         print(m.det_pos(l_data))
 
-    print(sys.stderr, 'sending acknowledgement to', address)
+    # print(sys.stderr, 'sending acknowledgement to', address)
     sock.sendto(bytes('ack', 'utf-8'), address)

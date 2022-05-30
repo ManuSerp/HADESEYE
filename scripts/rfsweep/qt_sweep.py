@@ -14,7 +14,7 @@ parser.add_argument("--freq", default="2400:2500", type=str, help="freq range")
 parser.add_argument("--mode", default=1, type=int,
                     help="mode 1 to erase noise")
 parser.add_argument("--cal", default=False, type=bool, help="calibrate")
-parser.add_argument("--name", default="antenna", type=str, help="name")
+parser.add_argument("--name", default="0", type=str, help="name")
 
 args = parser.parse_args()
 

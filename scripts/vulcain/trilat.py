@@ -36,6 +36,7 @@ class model:
             if x is not None:
                 pr.append(x)
                 c += 1
+        print("c:", c)
 
         if c == len(self.antenna):
             good_points = []
@@ -53,7 +54,8 @@ class model:
                     good_points.append([pt[0][1], pt[0][0]])
                 else:
                     good_points.append([pt[1][1], pt[1][0]])
-                return good_points
+                print("len:", len(good_points))
+            return good_points
         if c == 0:
             good_points = []
 
@@ -105,7 +107,7 @@ class model:
         for i in range(len(inter)):
             inter[i] = self.intersect(perm[i][0]-1, perm[i][1]-1)
 
-        print(inter)
+        # print(inter)
         return inter
 
     def intersect(self, a, b):
